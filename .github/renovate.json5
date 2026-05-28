@@ -4,9 +4,11 @@
     'config:recommended',
   ],
   ignorePresets: [
+    // Ensure we get the latest version and are not pinned to old versions.
     'workarounds:javaLTSVersions',
   ],
   customManagers: [
+    // Update .java-version file with the latest JDK version.
     {
       customType: 'regex',
       managerFilePatterns: [
@@ -17,6 +19,7 @@
       ],
       datasourceTemplate: 'java-version',
       depNameTemplate: 'java',
+      // Only write the major version.
       extractVersionTemplate: '^(?<version>\\d+)',
     },
   ],
@@ -24,6 +27,7 @@
     enabled: true,
   },
   packageRules: [
+    // https://github.com/renovatebot/renovate/discussions/43618#discussioncomment-17075386
     {
       description: 'Use regex versioning for AOSP submodule tags (android-<major>.<minor>.<patch>_r<build>)',
       matchManagers: [
